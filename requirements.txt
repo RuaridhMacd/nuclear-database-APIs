@@ -1,0 +1,6 @@
+numpy
+matplotlib
+selenium
+mechanize
+bs4
+requests
