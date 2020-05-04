@@ -9,6 +9,8 @@ import json
 from itertools import repeat
 from builtins import str
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 from api_visualize.api_visualize import api_visualize
 
 # Load the config
@@ -48,9 +50,14 @@ class xcom_api():
         self.service_args = service_args
         self.desired_capabilities = desired_capabilities
         self.service_log_path = service_log_path
-        self.chrome_options = chrome_options
+        if chrome_options == None:
+            chrome_options = Options()
+            chrome_options.add_argument("--headless")
+        else:
+            self.chrome_options = chrome_options
         self.keep_alive = keep_alive
-        self.driver = webdriver.Chrome()
+        #self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(ChromeDriverManager().install(), options = chrome_options)
         self.driver.get('https://physics.nist.gov/PhysRefData/Xcom/html/xcom1.html')
 
     def get_user_options(self):
